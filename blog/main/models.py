@@ -15,7 +15,8 @@ class Post(models.Model):
     author = models.ForeignKey(
         User,
         verbose_name="author",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        editable=False
     )
     published = models.BooleanField(default=False)
     title = models.CharField(max_length=200)
