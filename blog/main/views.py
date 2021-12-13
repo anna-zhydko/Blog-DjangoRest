@@ -8,7 +8,7 @@ from .serializers import PostSerializer, CategorySerializer
 
 
 class PostListView(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = [permissions.AllowAny]
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -20,16 +20,22 @@ class PostDetailView(generics.RetrieveAPIView):
 
 
 class PostCreateView(generics.CreateAPIView):
+    permission_classes = [permissions.AllowAny]
+
     # queryset = Post.objects.all()
     serializer_class = PostSerializer
 
 
 class CategoryListView(generics.ListAPIView):
+    permission_classes = [permissions.AllowAny]
+
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
 class CategoryDetailView(generics.RetrieveAPIView):
+
+
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
