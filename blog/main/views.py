@@ -15,9 +15,15 @@ class PostListView(generics.ListAPIView):
     serializer_class = PostSerializer
 
 
-class PostDetailView(generics.RetrieveAPIView):
+class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (my_permissions.IsAuthor, )
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+
+# class PostDeleteView(generics.DestroyAPIView):
+#     permission_classes = (permissions.IsAuthenticated, )
+#     serializer_class = PostSerializer
 
 
 class PostCreateView(generics.CreateAPIView):
@@ -28,22 +34,22 @@ class PostCreateView(generics.CreateAPIView):
         serializer.save(author=self.request.user)
 
 
-class CategoryListView(generics.ListAPIView):
-    permission_classes = [permissions.AllowAny]
-
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-
-
-class CategoryDetailView(generics.RetrieveAPIView):
-
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-
-
-class CategoryCreateView(generics.CreateAPIView):
-    # queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+# class CategoryListView(generics.ListAPIView):
+#     permission_classes = [permissions.AllowAny]
+#
+#     queryset = Category.objects.all()
+#     serializer_class = CategorySerializer
+#
+#
+# class CategoryDetailView(generics.RetrieveAPIView):
+#
+#     queryset = Category.objects.all()
+#     serializer_class = CategorySerializer
+#
+#
+# class CategoryCreateView(generics.CreateAPIView):
+#     # queryset = Category.objects.all()
+#     serializer_class = CategorySerializer
 
 
 
