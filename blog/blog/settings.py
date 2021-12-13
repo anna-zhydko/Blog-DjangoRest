@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'main',
     'djoser',
     'rest_framework_simplejwt',
+    'django_filters',
     # 'rest_framework_json_api',
 
     # 'auth_jwt',
@@ -143,6 +144,11 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PARSER_CLASSES': (
     #     'rest_framework.parsers.JSONParser',
     # )
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+
+    ),
+    # 'PAGE_SIZE': 10,
 
 }
 
@@ -177,15 +183,7 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
-    # 'PAGE_SIZE': 10,
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
-    # ),
-    # 'DEFAULT_PAGINATION_CLASS':
-    #     'rest_framework_json_api.pagination.PageNumberPagination',
-    # 'TEST_REQUEST_DEFAULT_FORMAT': 'json',
-    # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    # 'DATETIME_FORMAT': "%d.%m.%Y %H:%M:%S",
+
 
 
 

@@ -2,15 +2,30 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics, permissions
+from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import rest_framework as filters
 
 from .models import Post, Category
 from .serializers import PostSerializer, CategorySerializer
 from . import permissions as my_permissions
 
 
-class PostListView(generics.ListAPIView):
-    permission_classes = [permissions.AllowAny]
+class CharFilter(filters.BaseInFilter, filters.CharFilter):
+    pass
 
+
+class PostFilter(filters.FilterSet):
+    category = CharFilter(field_name='category__title')
+
+    class Meta:
+        model = Post
+        fields = ['category']
+
+
+class PostListView(generics.ListAPIView):
+    filter_backends = (DjangoFilterBackend, )
+    permission_classes = [permissions.AllowAny]
+    filterset_class = PostFilter
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
@@ -32,6 +47,9 @@ class PostCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+
+
 
 
 # class CategoryListView(generics.ListAPIView):
