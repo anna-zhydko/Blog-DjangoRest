@@ -15,17 +15,18 @@ class CharFilter(filters.BaseInFilter, filters.CharFilter):
 
 
 class PostFilter(filters.FilterSet):
-    category = CharFilter(field_name='category__title')
+    category = CharFilter(field_name='category__title', lookup_expr='in')
 
     class Meta:
         model = Post
-        fields = ['category']
+        fields = ('category', )
 
 
 class PostListView(generics.ListAPIView):
     filter_backends = (DjangoFilterBackend, )
     permission_classes = [permissions.AllowAny]
     filterset_class = PostFilter
+
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
